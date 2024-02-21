@@ -1,0 +1,22 @@
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap");
+
+body {
+  font-family: "Open Sans", sans-serif;
+  font-optical-sizing: auto;
+}
+
+.custom-select-noborder .ant-select-selector {
+  border: 0px !important;
+}
+
+.custom-select-noborder .ant-select-selection-placeholder {
+  font-size: 16px;
+  color: gray;
+}
+.custom-select-noborder input[type="search"]::placeholder {
+  color: red !important;
+}
+
+.product-and-services .ant-select-selector {
+  padding: 30px 10px !important;
+}
