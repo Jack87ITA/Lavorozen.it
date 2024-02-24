@@ -27,6 +27,7 @@ import Select from "../Components/Common/Select";
 import Switch from "../Components/Common/Switch";
 import DoughnutChart from "../Components/Home/Graph";
 import AutoComplete from "../Components/Common/AutoComplete";
+import { ProvinceList } from "../Constants";
 
 type Props = {};
 const resultTabs = [
@@ -40,14 +41,7 @@ const resultTabs = [
   },
 ];
 
-
 const resultDataBoldIndexes = [0, 4, 5];
-
-const options = [
-  { value: "Burns Bay Road" },
-  { value: "Downing Street" },
-  { value: "Wall Street" },
-];
 
 const Home = (props: Props) => {
   const [selectedResultTab, setSelectedResultTab] = React.useState(0);
@@ -100,7 +94,7 @@ const Home = (props: Props) => {
       label: "Retribuzione Lorda",
       data: [100000, 7692],
       backgroundColor: "#00B3E6",
-    }
+    },
   ];
 
   const [graphData, setGraphData] = React.useState({
@@ -189,7 +183,11 @@ const Home = (props: Props) => {
 
               <GridItem>
                 <AutoComplete
-                  options={options}
+                  options={Object.values(ProvinceList)
+                    .flat()
+                    .map((p) => ({
+                      value: p,
+                    }))}
                   label={"Provincia"}
                   containerProps={{
                     width: "100%",
@@ -423,7 +421,7 @@ const Home = (props: Props) => {
           </HStack>
 
           <Box
-            padding={"30px"}
+            padding={["15px", "30px"]}
             bg={"#fff"}
             w={"100%"}
             display={"flex"}
@@ -462,6 +460,7 @@ const Home = (props: Props) => {
               {data.map((_, i) => (
                 <Grid
                   borderBottom={"1px solid"}
+                  gap={"10px"}
                   borderColor={"gray.200"}
                   py={"10px"}
                   w={"100%"}
@@ -506,51 +505,39 @@ const Home = (props: Props) => {
                   </GridItem>
                 </Grid>
               ))}
-               <Grid
-                  borderBottom={"1px solid"}
-                  borderColor={"gray.200"}
-                  py={"10px"}
-                  w={"100%"}
-                  justifyContent={"space-between"}
-                  templateColumns={["repeat(4, 1fr)"]}
-                >
-                  <GridItem colSpan={2}>
-                    <Flex gap={"10px"} alignItems={"center"}>
-                      <Box
-                        w={"20px"}
-                        h={"20px"}
-                        borderRadius={"4px"}
-                        bg={"#fff"}
-                      ></Box>
-                      <Text
-                        fontWeight={
-                          600
-                        }
-                        fontSize={"sm"}
-                      >
-                        Costo Azendia
-                      </Text>
-                    </Flex>
-                  </GridItem>
-                  <GridItem>
-                    <Text
-                      fontWeight={600}
-                      fontSize={"sm"}
-                      color={"gray.700"}
-                    >
-                      € {(17702).toLocaleString()}
+              <Grid
+                borderBottom={"1px solid"}
+                gap={"10px"}
+                borderColor={"gray.200"}
+                py={"10px"}
+                w={"100%"}
+                justifyContent={"space-between"}
+                templateColumns={["repeat(4, 1fr)"]}
+              >
+                <GridItem colSpan={2}>
+                  <Flex gap={"10px"} alignItems={"center"}>
+                    <Box
+                      w={"20px"}
+                      h={"20px"}
+                      borderRadius={"4px"}
+                      bg={"#fff"}
+                    ></Box>
+                    <Text fontWeight={600} fontSize={"sm"}>
+                      Costo Azendia
                     </Text>
-                  </GridItem>
-                  <GridItem>
-                    <Text
-                      fontWeight={600}
-                      fontSize={"sm"}
-                      color={"gray.700"}
-                    >
-                      € {(13702)?.toLocaleString()}
-                    </Text>
-                  </GridItem>
-                </Grid>
+                  </Flex>
+                </GridItem>
+                <GridItem>
+                  <Text fontWeight={600} fontSize={"sm"} color={"gray.700"}>
+                    € {(17702).toLocaleString()}
+                  </Text>
+                </GridItem>
+                <GridItem>
+                  <Text fontWeight={600} fontSize={"sm"} color={"gray.700"}>
+                    € {13702?.toLocaleString()}
+                  </Text>
+                </GridItem>
+              </Grid>
             </VStack>
           </Box>
         </Box>
