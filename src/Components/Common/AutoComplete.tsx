@@ -6,50 +6,57 @@ import {
   InputGroup,
   InputRightElement,
 } from "@chakra-ui/react";
+import { AutoComplete as AntdAutocomplete } from "antd";
 import React from "react";
 
-interface InputProps extends ChakraInputProps {
+interface AutoCompleteProps {
   label: string;
   rightElement?: React.ReactNode;
   type?: string;
   containerProps?: any;
+  options: { value: string }[];
 }
 
-const Input = ({
+const AutoComplete = ({
   label,
   type = "text",
+  options,
   containerProps,
   rightElement,
   ...args
-}: InputProps) => {
+}: AutoCompleteProps) => {
   return (
     <FormControl
       display={"flex"}
-      flexDir={["row"]}
+      flexDir={["row", "row"]}
       gap={"20px"}
       alignItems={"center"}
       justifyContent={"space-between"}
       {...containerProps}
     >
-      <FormLabel fontWeight={400} fontSize={"sm"}>
+      <FormLabel whiteSpace={"nowrap"} fontWeight={400} fontSize={"sm"}>
         {label}
       </FormLabel>
       <InputGroup
         width={"auto"}
-        minW={["120px", "250px"]}
+        minW={["120px","250px"]}
         borderRadius={"8px"}
         overflow={"hidden"}
+        border={"1px solid #E2E8F0"}
       >
-        <ChakraInput
-          fontSize={"sm"}
-          _placeholder={{
-            fontSize: "xs",
-          }}
-          borderRadius={"8px"}
-          pr="4.5rem"
-          type={type}
+        <AntdAutocomplete
+        style={{
+            width: "100%",
+            height: "40px",
+            borderRadius: "8px",
+            borderWidth: "0px",
+            border: "1px solid transparent"
+        }}
+          options={options}
           placeholder={`Enter ${label}`}
-          {...args}
+          filterOption={(inputValue, option) =>
+            option!.value.toUpperCase().indexOf(inputValue.toUpperCase()) !== -1
+          }
         />
         <InputRightElement width="auto" pointerEvents="none">
           {rightElement}
@@ -59,4 +66,4 @@ const Input = ({
   );
 };
 
-export default Input;
+export default AutoComplete;

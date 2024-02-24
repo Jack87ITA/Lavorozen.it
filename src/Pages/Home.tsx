@@ -13,6 +13,7 @@ import {
   Flex,
   Button,
 } from "@chakra-ui/react";
+
 import { useNavigate, useSearchParams } from "react-router-dom";
 import Login from "./Common/Login";
 import Register from "./Common/Register";
@@ -24,12 +25,11 @@ import Input from "../Components/Common/Input";
 import { colors } from "../Styles/Theme/colors";
 import Select from "../Components/Common/Select";
 import Switch from "../Components/Common/Switch";
-import BarChart from "../Components/Home/Graph";
+import DoughnutChart from "../Components/Home/Graph";
+import AutoComplete from "../Components/Common/AutoComplete";
+import { ProvinceList } from "../Constants";
 
 type Props = {};
-
-type ScreenState = "login" | "register" | "forgot";
-
 const resultTabs = [
   {
     name: "Anno",
@@ -41,27 +41,10 @@ const resultTabs = [
   },
 ];
 
-const colorArray = ["#FF6633", "#FFB399", "#FF33FF", "#FFFF99", "#00B3E6"];
-
-const resultData: any = {
-  anno: {
-    "Retribuzione Lorda": 100000,
-    INPS: 5840,
-    IRPEF: 35414,
-    "Detrazioni fiscali": 8,
-    "Stipendio netto": 58754,
-  },
-  mese: {
-    "Retribuzione Lorda": 7692,
-    INPS: 449,
-    IRPEF: 2724,
-    "Detrazioni fiscali": 1,
-    "Stipendio netto": 4520,
-  },
-};
+const resultDataBoldIndexes = [0, 4, 5];
 
 const Home = (props: Props) => {
-  const [selectedResultTab, setSelectedResultTab] = React.useState("anno");
+  const [selectedResultTab, setSelectedResultTab] = React.useState(0);
 
   const [formData, setFormData] = React.useState({
     ral: 0,
@@ -81,6 +64,65 @@ const Home = (props: Props) => {
     setFormData((prev) => ({ ...prev, [key]: value }));
   };
 
+  const data = [
+    {
+      id: "1",
+      label: "Stipendio netto",
+      data: [58754, 4520],
+      backgroundColor: "#FF6633",
+    },
+    {
+      id: "2",
+      label: "INPS",
+      data: [5840, 449],
+      backgroundColor: "#FFB399",
+    },
+    {
+      id: "3",
+      label: "IRPEF",
+      data: [35414, 2724],
+      backgroundColor: "#FF33FF",
+    },
+    {
+      id: "4",
+      label: "Detrazioni fiscali",
+      data: [8, 1],
+      backgroundColor: "#FFFF99",
+    },
+    {
+      id: "5",
+      label: "Retribuzione Lorda",
+      data: [100000, 7692],
+      backgroundColor: "#00B3E6",
+    },
+  ];
+
+  const [graphData, setGraphData] = React.useState({
+    labels: data?.map((d) => d.label),
+    datasets: [
+      {
+        label: "My Dataset",
+        data: data.map((d) => d.data[0]),
+        backgroundColor: data.map((d) => d.backgroundColor),
+        borderWidth: 1,
+      },
+    ],
+  });
+
+  useEffect(() => {
+    setGraphData((prev) => ({
+      ...prev,
+      datasets: [
+        {
+          label: "My Dataset",
+          data: data?.map((d) => d.data[0]),
+          backgroundColor: data.map((d) => d.backgroundColor),
+          borderWidth: 1,
+        },
+      ],
+    }));
+  }, [selectedResultTab]);
+
   return (
     <WebLayout>
       <>
@@ -90,7 +132,7 @@ const Home = (props: Props) => {
 
         <Box
           my={"90px"}
-          p={["20px","50px 100px"]}
+          p={["20px", "30px", "50px 100px"]}
           bg={"#fff"}
           w={"100%"}
           h={"100%"}
@@ -105,12 +147,16 @@ const Home = (props: Props) => {
               fontWeight={"600"}
               size={"md"}
             >
-              Simulatore Lordo - Netto{" "}
+              Calcola ora il tuo stipendio netto
             </Heading>
 
             <Grid
-              templateColumns={["repeat(1, 1fr)", "repeat(2, 1fr)"]}
-              gap={6}
+              templateColumns={[
+                "repeat(1, 1fr)",
+                "repeat(1, 1fr)",
+                "repeat(2, 1fr)",
+              ]}
+              gap={10}
               w={"100%"}
               mt={10}
             >
@@ -136,14 +182,17 @@ const Home = (props: Props) => {
               </GridItem>
 
               <GridItem>
-                <Input
-                containerProps={{
-                  justifyContent: "flex-end",
-                }}
-                  type={"number"}
-                  label={"Provincia di Residenza"}
-                  value={formData.province}
-                  onChange={(e) => handleFormChange("province", e.target.value)}
+                <AutoComplete
+                  options={Object.values(ProvinceList)
+                    .flat()
+                    .map((p) => ({
+                      value: p,
+                    }))}
+                  label={"Provincia"}
+                  containerProps={{
+                    width: "100%",
+                    // justifyContent: ["flex-start", "flex-start", "flex-end"],
+                  }}
                 />
               </GridItem>
 
@@ -163,7 +212,10 @@ const Home = (props: Props) => {
 
               <GridItem>
                 <Select
-                  containerProps={{ width: "100%", justifyContent: "flex-end" }}
+                  containerProps={{
+                    width: "100%",
+                    justifyContent: ["space-between"],
+                  }}
                   label={"Tipo di Contratto"}
                   defaultValue={"indeterminato"}
                   options={[
@@ -182,7 +234,7 @@ const Home = (props: Props) => {
                 <Select
                   containerProps={{
                     width: "100%",
-                    justifyContent: "flex-start",
+                    // justifyContent: "flex-start",
                   }}
                   label={"Genere"}
                   options={[
@@ -197,9 +249,9 @@ const Home = (props: Props) => {
 
               <GridItem>
                 <Input
-                 containerProps={{
-                  justifyContent: "flex-end",
-                }}
+                  containerProps={{
+                    justifyContent: ["space-between"],
+                  }}
                   type="number"
                   defaultValue={365}
                   min={1}
@@ -238,7 +290,10 @@ const Home = (props: Props) => {
 
               <GridItem>
                 <Switch
-                  containerProps={{ width: "100%", justifyContent: "flex-end" }}
+                  containerProps={{
+                    width: "100%",
+                    justifyContent: "space-between",
+                  }}
                   label={"Coniuge o Unito Civile a Carico"}
                 />
               </GridItem>
@@ -259,7 +314,10 @@ const Home = (props: Props) => {
 
               <GridItem>
                 <Select
-                  containerProps={{ width: "100%", justifyContent: "flex-end" }}
+                  containerProps={{
+                    width: "100%",
+                    justifyContent: ["space-between"],
+                  }}
                   label={"% di figli A carico"}
                   defaultValue={"0"}
                   options={[
@@ -287,7 +345,40 @@ const Home = (props: Props) => {
                   }
                 />
               </GridItem>
+
+              <GridItem>
+                <Select
+                  containerProps={{
+                    width: "100%",
+                    justifyContent: ["space-between"],
+                  }}
+                  label={"Categoria"}
+                  defaultValue={"operaio"}
+                  options={[
+                    { label: "Operaio", value: "operaio" },
+                    { label: "Impiegato", value: "impiegato" },
+                    { label: "Dirigente", value: "dirigente" },
+                  ]}
+                  value={formData.percentualeFigliCarico}
+                  onChange={(e) =>
+                    handleFormChange("percentualeFigliCarico", e.target.value)
+                  }
+                />
+              </GridItem>
             </Grid>
+            <Button
+              mt={"30px"}
+              // w={"100%"}
+              mx={"auto"}
+              w={"200px"}
+              bg={colors.primary.main}
+              color={"#fff"}
+              borderRadius={"10px"}
+              fontSize={"md"}
+              padding={"15px"}
+            >
+              Calcola
+            </Button>
           </VStack>
         </Box>
 
@@ -310,21 +401,19 @@ const Home = (props: Props) => {
           >
             {resultTabs.map((tab, i) => (
               <Box
-                onClick={() => setSelectedResultTab(tab.key)}
+                onClick={() => setSelectedResultTab(i)}
                 cursor={"pointer"}
                 w={"100%"}
                 h={"100%"}
                 borderRadius={"30px"}
                 p={"15px"}
-                bg={
-                  selectedResultTab === tab.key ? colors.primary.main : "#fff"
-                }
-                color={selectedResultTab === tab.key ? "#fff" : "#000"}
+                bg={selectedResultTab === i ? colors.primary.main : "#fff"}
+                color={selectedResultTab === i ? "#fff" : "gray.600"}
                 display={"flex"}
                 alignItems={"center"}
                 justifyContent={"center"}
               >
-                <Text fontWeight={600} fontSize={"md"}>
+                <Text fontWeight={500} fontSize={"md"}>
                   {tab.name}
                 </Text>
               </Box>
@@ -332,7 +421,7 @@ const Home = (props: Props) => {
           </HStack>
 
           <Box
-            padding={"30px"}
+            padding={["15px", "30px"]}
             bg={"#fff"}
             w={"100%"}
             display={"flex"}
@@ -341,46 +430,115 @@ const Home = (props: Props) => {
             boxShadow={"0px 0px 10px 0px #0000001a"}
             borderRadius={"30px"}
           >
-            <BarChart />
+            <DoughnutChart
+              data={graphData}
+              value={data[0].data[selectedResultTab]}
+            />
 
             <VStack mt={"45px"} w={"100%"}>
-              {Object.keys(resultData[selectedResultTab]).map((_, i) => (
-                <HStack
+              <Grid
+                py={"10px"}
+                w={"100%"}
+                borderBottom={"1px solid"}
+                borderColor={"gray.400"}
+                templateColumns={["repeat(4, 1fr)"]}
+              >
+                <GridItem colSpan={2}>
+                  <Text fontSize={"sm"}></Text>
+                </GridItem>
+                <GridItem>
+                  <Text fontSize={"md"} fontWeight={500}>
+                    Anno
+                  </Text>
+                </GridItem>
+                <GridItem>
+                  <Text fontSize={"md"} fontWeight={500}>
+                    Mese
+                  </Text>
+                </GridItem>
+              </Grid>
+              {data.map((_, i) => (
+                <Grid
                   borderBottom={"1px solid"}
+                  gap={"10px"}
                   borderColor={"gray.200"}
-                  p={"10px"}
+                  py={"10px"}
                   w={"100%"}
                   justifyContent={"space-between"}
+                  templateColumns={["repeat(4, 1fr)"]}
                 >
+                  <GridItem colSpan={2}>
+                    <Flex gap={"10px"} alignItems={"center"}>
+                      <Box
+                        w={"20px"}
+                        h={"20px"}
+                        borderRadius={"4px"}
+                        bg={_.backgroundColor}
+                      ></Box>
+                      <Text
+                        fontWeight={
+                          resultDataBoldIndexes.includes(i) ? 600 : 400
+                        }
+                        fontSize={"sm"}
+                      >
+                        {_.label}
+                      </Text>
+                    </Flex>
+                  </GridItem>
+                  <GridItem>
+                    <Text
+                      fontWeight={resultDataBoldIndexes.includes(i) ? 600 : 400}
+                      fontSize={"sm"}
+                      color={"gray.700"}
+                    >
+                      € {_.data[0]?.toLocaleString()}
+                    </Text>
+                  </GridItem>
+                  <GridItem>
+                    <Text
+                      fontWeight={resultDataBoldIndexes.includes(i) ? 600 : 400}
+                      fontSize={"sm"}
+                      color={"gray.700"}
+                    >
+                      € {_.data[1]?.toLocaleString()}
+                    </Text>
+                  </GridItem>
+                </Grid>
+              ))}
+              <Grid
+                borderBottom={"1px solid"}
+                gap={"10px"}
+                borderColor={"gray.200"}
+                py={"10px"}
+                w={"100%"}
+                justifyContent={"space-between"}
+                templateColumns={["repeat(4, 1fr)"]}
+              >
+                <GridItem colSpan={2}>
                   <Flex gap={"10px"} alignItems={"center"}>
                     <Box
                       w={"20px"}
                       h={"20px"}
                       borderRadius={"4px"}
-                      bg={colorArray[i]}
+                      bg={"#fff"}
                     ></Box>
-                    <Text fontSize={"sm"}>{_}</Text>
+                    <Text fontWeight={600} fontSize={"sm"}>
+                      Costo Azendia
+                    </Text>
                   </Flex>
-                  <Text fontWeight={600} fontSize={"lg"}>
-                    € {resultData[selectedResultTab][_]?.toLocaleString()}
+                </GridItem>
+                <GridItem>
+                  <Text fontWeight={600} fontSize={"sm"} color={"gray.700"}>
+                    € {(17702).toLocaleString()}
                   </Text>
-                </HStack>
-              ))}
+                </GridItem>
+                <GridItem>
+                  <Text fontWeight={600} fontSize={"sm"} color={"gray.700"}>
+                    € {13702?.toLocaleString()}
+                  </Text>
+                </GridItem>
+              </Grid>
             </VStack>
-
-            <Button
-              mt={"30px"}
-              // w={"100%"}
-              mx={"auto"}
-              w={"200px"}
-              bg={colors.primary.main}
-              color={"#fff"}
-              borderRadius={"10px"}
-              fontSize={"md"}
-              padding={"15px"}
-            >
-              Calcola
-            </Button>
           </Box>
         </Box>
       </>

@@ -1,53 +1,37 @@
-import { Bar } from "react-chartjs-2";
-import {
-  Chart as ChartJS,
-  CategoryScale,
-  LinearScale,
-  BarController,
-  BarElement,
-  Title,
-  Tooltip,
-  Legend
-} from "chart.js";
-import { colors } from "../../Styles/Theme/colors";
+import { Box, Text } from "@chakra-ui/react";
+import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
+import { Doughnut } from "react-chartjs-2";
 
-ChartJS.register(
-  Title,
-  Tooltip,
-  Legend,
-  CategoryScale,
-  LinearScale,
-  BarElement,
-  BarController
-);
+ChartJS.register(ArcElement, Tooltip, Legend);
 
-const BarChart = () => {
-  const data = {
-    labels: ['Label 1', 'Label 2', 'Label 3', 'Label 4', 'Label 5'],
-    datasets: [
-      {
-        label: 'Data Series 1',
-        backgroundColor: colors.primary.main + "50",
-        borderColor: colors.primary.main,
-        borderWidth: 1,
-        data: [12, 19, 3, 5, 2],
-      },
-    ],
-  };
-
+const DoughnutChart = ({ data, value }: any) => {
   const options = {
-    scales: {
-      y: {
-        beginAtZero: true,
+    plugins: {
+      legend: {
+        display: false,
       },
     },
   };
 
   return (
-    <div>
-      <Bar data={data} options={options} />
+    <div className=" relative d-flex w-[100%] justify-center items-center">
+      <Doughnut data={data} options={options} />
+      <Box
+        transform={"translate(-50%, -50%)"}
+        position={"absolute"}
+        top={"50%"}
+        left={"50%"}
+      >
+        <Text textAlign={"center"} fontWeight={600}>
+          {" "}
+          € {value?.toLocaleString()}
+        </Text>
+        <Text textAlign={"center"} fontSize={"sm"} fontWeight={600}>
+          Stipendo Netto
+        </Text>
+      </Box>
     </div>
   );
 };
 
-export default BarChart;
+export default DoughnutChart;
