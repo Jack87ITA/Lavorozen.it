@@ -165,7 +165,7 @@ const Home = (props: Props) => {
                   label={"Retribuzione Annua Lorda (RAL)"}
                   type="number"
                   value={formData.ral}
-                  onChange={(e) => handleFormChange("ral", e.target.value)}
+                  onChange={(e) => handleFormChange("ral", e)}
                   rightElement={
                     <Box
                       background={colors.background.main}
@@ -205,7 +205,7 @@ const Home = (props: Props) => {
                   label={"Numero Mensilità"}
                   value={formData.mensilita}
                   onChange={(e) =>
-                    handleFormChange("mensilita", e.target.value)
+                    handleFormChange("mensilita", e)
                   }
                 />
               </GridItem>
@@ -259,7 +259,7 @@ const Home = (props: Props) => {
                   label={"Giorni Lavorati nell'anno"}
                   value={formData.giorniLavorati}
                   onChange={(e) =>
-                    handleFormChange("giorniLavorati", e.target.value)
+                    handleFormChange("giorniLavorati", e)
                   }
                 />
               </GridItem>
@@ -283,7 +283,7 @@ const Home = (props: Props) => {
                   label={"Addizionale Comunale"}
                   value={formData.addizionaleComunale}
                   onChange={(e) =>
-                    handleFormChange("addizionaleComunale", e.target.value)
+                    handleFormChange("addizionaleComunale", e)
                   }
                 />
               </GridItem>
@@ -307,7 +307,7 @@ const Home = (props: Props) => {
                   label={"Numero Figli a Carico (Oltre Assegno Unico)"}
                   value={formData.figliCarico}
                   onChange={(e) =>
-                    handleFormChange("figliCarico", e.target.value)
+                    handleFormChange("figliCarico", e)
                   }
                 />
               </GridItem>
@@ -341,7 +341,7 @@ const Home = (props: Props) => {
                   label={"Numero Altri Familiari A Carico"}
                   value={formData.altriFamiliariCarico}
                   onChange={(e) =>
-                    handleFormChange("altriFamiliariCarico", e.target.value)
+                    handleFormChange("altriFamiliariCarico", e)
                   }
                 />
               </GridItem>

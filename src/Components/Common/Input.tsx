@@ -8,11 +8,12 @@ import {
 } from "@chakra-ui/react";
 import React from "react";
 
-interface InputProps extends ChakraInputProps {
+interface InputProps extends Omit<ChakraInputProps, "onChange">{
   label: string;
   rightElement?: React.ReactNode;
   type?: string;
   containerProps?: any;
+  onChange: (value: string) => void;
 }
 
 const Input = ({
@@ -20,6 +21,7 @@ const Input = ({
   type = "text",
   containerProps,
   rightElement,
+  onChange,
   ...args
 }: InputProps) => {
   return (
@@ -49,6 +51,23 @@ const Input = ({
           pr="4.5rem"
           type={type}
           placeholder={`Enter ${label}`}
+
+          onChange={(e:any) => {
+            let tempValue = e.target.value;
+            if(args.min) {
+              if (e.target.value < args.min) {
+                tempValue = String(args.min) ;
+              }
+            }
+            if(args.max) {
+              if (e.target.value > args.max) {
+                tempValue = String(args.max);
+              }
+            }
+            onChange && onChange(tempValue);
+          }
+          }
+
           {...args}
         />
         <InputRightElement width="auto" pointerEvents="none">
