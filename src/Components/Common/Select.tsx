@@ -1,5 +1,10 @@
 import React from "react";
-import { Select as ChakraSelect, SelectProps as ChakraSelectProps, FormControl, FormLabel } from "@chakra-ui/react";
+import {
+  Select as ChakraSelect,
+  SelectProps as ChakraSelectProps,
+  FormControl,
+  FormLabel,
+} from "@chakra-ui/react";
 
 interface SelectProps extends ChakraSelectProps {
   label: string;
@@ -11,17 +16,22 @@ const Select = ({ label, options, containerProps, ...args }: SelectProps) => {
   return (
     <FormControl
       display={"flex"}
-      flexDir={["column", "row"]}
+      flexDir={["row"]}
       gap={"20px"}
+      justifyContent={"space-between"}
       alignItems={"center"}
       {...containerProps}
     >
-      <FormLabel whiteSpace={"nowrap"} fontWeight={400} fontSize={"sm"}>
+      <FormLabel
+        
+        fontWeight={400}
+        fontSize={"sm"}
+      >
         {label}
       </FormLabel>
       <ChakraSelect
         width={"auto"}
-        minW={"250px"}
+        minW={["120px", "250px"]}
         borderRadius={"8px"}
         overflow={"hidden"}
         fontSize={"sm"}

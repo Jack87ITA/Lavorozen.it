@@ -4,7 +4,7 @@ import { colors } from "../../Styles/Theme/colors";
 
 const Banner = () => {
   return (
-    <Flex mt={"60px"} flexDirection={["column", "row"]} justifyContent={"space-around"} alignItems={"center"}>
+    <Flex  gap="20px" mt={"60px"} flexDirection={["column", "row"]} justifyContent={"space-around"} alignItems={"center"}>
       <Box flex={0.3}>
         <Heading fontWeight={"semibold"} mb={6} fontSize={"4xl"}>
           Calcolo stipendio

@@ -10,13 +10,13 @@ const Switch = ({ label, containerProps }: SwitchProps) => {
   return (
     <FormControl
       display={"flex"}
-      flexDir={["column", "row"]}
+      flexDir={["row"]}
 
       gap={"20px"}
       alignItems={"center"}
       {...containerProps}
     >
-      <FormLabel whiteSpace={"nowrap"} fontWeight={400} fontSize={"sm"}>
+      <FormLabel whiteSpace={["normal", "normal","nowrap"]} fontWeight={400} fontSize={"sm"}>
         {label}
       </FormLabel>
       <ChakraSwitch colorScheme="blue" />
