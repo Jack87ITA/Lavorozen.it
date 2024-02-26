@@ -48,29 +48,18 @@ const Input = ({
             fontSize: "xs",
           }}
           borderRadius={"8px"}
-          pr="4.5rem"
           type={type}
           placeholder={`Enter ${label}`}
 
           onChange={(e:any) => {
             let tempValue = e.target.value;
-            if(args.min) {
-              if (e.target.value < args.min) {
-                tempValue = String(args.min) ;
-              }
-            }
-            if(args.max) {
-              if (e.target.value > args.max) {
-                tempValue = String(args.max);
-              }
-            }
             onChange && onChange(tempValue);
           }
           }
 
           {...args}
         />
-        <InputRightElement width="auto" pointerEvents="none">
+        <InputRightElement ml={"-10px"} position={"relative"} width="auto" pointerEvents="none">
           {rightElement}
         </InputRightElement>
       </InputGroup>
