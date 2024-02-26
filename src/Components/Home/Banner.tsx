@@ -3,6 +3,7 @@ import React from "react";
 import { colors } from "../../Styles/Theme/colors";
 
 const Banner = () => {
+  
   return (
     <Flex  gap="20px" mt={"60px"} flexDirection={["column", "row"]} justifyContent={"space-around"} alignItems={"center"}>
       <Box flex={0.3}>
