@@ -83,8 +83,8 @@ const inputData = [
     key: "figliCarico",
     label: "Numero Figli a Carico (Oltre Assegno Unico)",
     type: "number",
-    defaultValue: 1,
-    min: 1,
+    defaultValue: 0,
+    min: 0,
     max: 100,
   },
   {
@@ -101,8 +101,8 @@ const inputData = [
     key: "altriFamiliariCarico",
     label: "Numero Altri Familiari A Carico",
     type: "number",
-    defaultValue: 1,
-    min: 1,
+    defaultValue: 0,
+    min: 0,
   },
   {
     key: "categoria",
@@ -116,7 +116,11 @@ const inputData = [
   },
 ];
 
-const InputSection = () => {
+interface InputSectionProps {
+  handleCalculate: () => void;
+}
+
+const InputSection = ({ handleCalculate }: InputSectionProps) => {
   const [formData, setFormData] = React.useState<any>({
     ral: 0,
     province: "",
@@ -126,9 +130,9 @@ const InputSection = () => {
     giorniLavorati: 365,
     addizionaleComunale: 0.8,
     coniugeCarico: false,
-    figliCarico: 1,
+    figliCarico: 0,
     percentualeFigliCarico: 0,
-    altriFamiliariCarico: 1,
+    altriFamiliariCarico: 0,
   });
 
   const handleFormChange = (key: string, value: any) => {
@@ -144,10 +148,10 @@ const InputSection = () => {
     inputData.forEach((input: any) => {
       if (input.min && formData[input.key] < input.min) {
         valid = false;
-        newErrors[input.key] = "Min value is " + input.min;
+        newErrors[input.key] = "Valore minimo " + input.min;
       } else if (input.max && formData[input.key] > input.max) {
         valid = false;
-        newErrors[input.key] = "Max value is " + input.max;
+        newErrors[input.key] = "Valore massimo " + input.max;
       } else {
         newErrors[input.key] = "";
       }
@@ -261,6 +265,7 @@ const InputSection = () => {
           ))}
         </Grid>
         <Button
+          onClick={handleCalculate}
           mt={"30px"}
           mx={"auto"}
           w={"200px"}
