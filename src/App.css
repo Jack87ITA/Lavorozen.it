@@ -20,3 +20,7 @@ body {
 .product-and-services .ant-select-selector {
   padding: 30px 10px !important;
 }
+
+.ant-select-selector{
+  border: 0px !important;
+}
