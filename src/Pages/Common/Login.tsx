@@ -58,32 +58,32 @@ const Login = (props: Props) => {
     }
 
     setLoading(true);
-    try {
-      const login = await dispatch(loginUser({ email, password }));
+    // try {
+    //   const login = await dispatch(loginUser({ email, password }));
 
-      if (login.payload) {
-        setLoading(false);
+    //   if (login.payload) {
+    //     setLoading(false);
 
-        if (login.payload.success) {
-          localStorage.setItem("token", login.payload.token);
-          dispatch(
-            actions.user.set({
-              data: login.payload.data,
-              token: login.payload.token,
-            })
-          );
-          navigate("/home");
-        }
+    //     if (login.payload.success) {
+    //       localStorage.setItem("token", login.payload.token);
+    //       dispatch(
+    //         actions.user.set({
+    //           data: login.payload.data,
+    //           token: login.payload.token,
+    //         })
+    //       );
+    //       navigate("/home");
+    //     }
 
-        return;
-      }
-    } catch (err) {
-      setLoading(false);
-      const msg = errorHandler(err);
-      error(msg);
-    } finally {
-      setLoading(false);
-    }
+    //     return;
+    //   }
+    // } catch (err) {
+    //   setLoading(false);
+    //   const msg = errorHandler(err);
+    //   error(msg);
+    // } finally {
+    //   setLoading(false);
+    // }
   };
 
   useEffect(() => {

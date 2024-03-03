@@ -49,33 +49,33 @@ const Register = (props: Props) => {
   const handleSubmit = async () => {
     if (!email || !password || !username)
       return error("Please fill all the fields", "");
-    try {
-      setLoading(true);
-      const response = await AuthAPI.postCreateUser({
-        username,
-        email,
-        password,
-      });
-      if (response) {
-        console.log(response);
-        success("User Created successfully", "");
+    // try {
+    //   setLoading(true);
+    //   const response = await AuthAPI.postCreateUser({
+    //     username,
+    //     email,
+    //     password,
+    //   });
+    //   if (response) {
+    //     console.log(response);
+    //     success("User Created successfully", "");
 
-        localStorage.setItem("token", response.token);
+    //     localStorage.setItem("token", response.token);
 
-        const data = {
-          token: response.token,
-          user: response.data,
-        };
-        dispatch(actions.user.set(data));
-        navigate("/home");
-      }
-    } catch (err: any) {
-      console.log("error logging user :: ", err);
-      const errMsg = errorHandler(err);
-      error(errMsg, "");
-    } finally {
-      setLoading(false);
-    }
+    //     const data = {
+    //       token: response.token,
+    //       user: response.data,
+    //     };
+    //     dispatch(actions.user.set(data));
+    //     navigate("/home");
+    //   }
+    // } catch (err: any) {
+    //   console.log("error logging user :: ", err);
+    //   const errMsg = errorHandler(err);
+    //   error(errMsg, "");
+    // } finally {
+    //   setLoading(false);
+    // }
   };
 
   const submitRef = useRef<any>(null);
