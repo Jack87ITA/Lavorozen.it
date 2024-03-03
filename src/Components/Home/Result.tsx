@@ -22,79 +22,18 @@ const resultTabs = [
   },
 ];
 
-const Result = ({ resultRef }: any) => {
+const Result = ({ resultRef, data }: any) => {
   const [selectedResultTab, setSelectedResultTab] = React.useState(0);
 
-  // Graph Handle Functions
 
-  const data = [
-    {
-      id: "1",
-      label: "Stipendio netto",
-      data: [58754, 4520],
-      backgroundColor: "#FF6633",
-      showOnGraph: true,
-      isHeading: true,
-    },
-    {
-      id: "2",
-      label: "INPS",
-      data: [5840, 449],
-      backgroundColor: "#FFB399",
-      showOnGraph: true,
-    },
-    {
-      id: "3",
-      label: "IRPEF",
-      data: [35414, 2724],
-      backgroundColor: "#FF33FF",
-      showOnGraph: true,
-    },
-    {
-      id: "4",
-      label: "Detrazioni fiscali",
-      data: [8, 1],
-      backgroundColor: "#FFFF99",
-      showOnGraph: true,
-    },
-    {
-      id: "5",
-      label: "Retribuzione Lorda",
-      data: [100000, 7692],
-      backgroundColor: "#00B3E6",
-      isHeading: true,
-      showOnGraph: true,
-    },
-    {
-      id: "6",
-      label: "INPS azienda",
-      data: [27680, 2212],
-      backgroundColor: "#FFF3E6",
-      showOnGraph: false,
-    },
-    {
-      id: "7",
-      label: "INAIL",
-      data: [500, 38],
-      backgroundColor: "#0FF3E6",
-      showOnGraph: false,
-    },
-    {
-      id: "8",
-      label: "TFR",
-      data: [6907, 531],
-      backgroundColor: "#0088E6",
-      showOnGraph: false,
-    },
-  ];
 
   const [graphData, setGraphData] = React.useState({
-    labels: data?.map((d) => d.showOnGraph && d.label),
+    labels: data?.map((d:any) => d.showOnGraph && d.label),
     datasets: [
       {
         label: "My Dataset",
-        data: data.map((d) => d.showOnGraph && d.data[0]),
-        backgroundColor: data.map((d) => d.showOnGraph && d.backgroundColor),
+        data: data.map((d:any) => d.showOnGraph && d.data[0]),
+        backgroundColor: data.map((d:any) => d.showOnGraph && d.backgroundColor),
         borderWidth: 1,
       },
     ],
@@ -106,13 +45,14 @@ const Result = ({ resultRef }: any) => {
       datasets: [
         {
           label: "My Dataset",
-          data: data?.map((d) => d.showOnGraph && d.data[selectedResultTab]),
-          backgroundColor: data.map((d) => d.showOnGraph && d.backgroundColor),
+          data: data?.map((d:any) => d.showOnGraph && d.data[selectedResultTab]),
+          backgroundColor: data.map((d:any) => d.showOnGraph && d.backgroundColor),
           borderWidth: 1,
         },
       ],
     }));
-  }, [selectedResultTab]);
+  }, [selectedResultTab, data ]);
+
   return (
     <Box
       display={"flex"}
@@ -184,7 +124,7 @@ const Result = ({ resultRef }: any) => {
               </Text>
             </GridItem>
           </Grid>
-          {data.map((_, i) => (
+          {data.map((_:any, i:number) => (
             <Grid
               borderBottom={"1px solid"}
               gap={"10px"}

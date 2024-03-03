@@ -54,9 +54,9 @@ const inputData = [
     label: "Genere",
     type: "select",
     options: [
-      { label: "Donna", value: "Donna" },
-      { label: "Uomo", value: "Uomo" },
-      { label: "Altro", value: "Altro" },
+      { label: "Donna", value: "donna" },
+      { label: "Uomo", value: "uomo" },
+      { label: "Altro", value: "altro" },
     ],
   },
   {
@@ -117,7 +117,7 @@ const inputData = [
 ];
 
 interface InputSectionProps {
-  handleCalculate: () => void;
+  handleCalculate: (input:any) => void;
 }
 
 const InputSection = ({ handleCalculate }: InputSectionProps) => {
@@ -126,13 +126,14 @@ const InputSection = ({ handleCalculate }: InputSectionProps) => {
     province: "",
     mensilita: 13,
     contratto: "indeterminato",
-    genere: "Donna",
+    genere: "donna",
     giorniLavorati: 365,
     addizionaleComunale: 0.8,
     coniugeCarico: false,
     figliCarico: 0,
     percentualeFigliCarico: 0,
     altriFamiliariCarico: 0,
+    categoria: "operaio",
   });
 
   const handleFormChange = (key: string, value: any) => {
@@ -164,6 +165,8 @@ const InputSection = ({ handleCalculate }: InputSectionProps) => {
   useEffect(() => {
     validateForm();
   }, [formData]);
+
+
 
   return (
     <Box
@@ -265,7 +268,7 @@ const InputSection = ({ handleCalculate }: InputSectionProps) => {
           ))}
         </Grid>
         <Button
-          onClick={handleCalculate}
+          onClick={() => handleCalculate(formData)}
           mt={"30px"}
           mx={"auto"}
           w={"200px"}
