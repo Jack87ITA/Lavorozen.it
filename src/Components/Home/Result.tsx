@@ -25,15 +25,15 @@ const resultTabs = [
 const Result = ({ resultRef, data }: any) => {
   const [selectedResultTab, setSelectedResultTab] = React.useState(0);
 
-
-
   const [graphData, setGraphData] = React.useState({
-    labels: data?.map((d:any) => d.showOnGraph && d.label),
+    labels: data?.map((d: any) => d.showOnGraph && d.label),
     datasets: [
       {
         label: "My Dataset",
-        data: data.map((d:any) => d.showOnGraph && d.data[0]),
-        backgroundColor: data.map((d:any) => d.showOnGraph && d.backgroundColor),
+        data: data.map((d: any) => d.showOnGraph && d.data[0]),
+        backgroundColor: data.map(
+          (d: any) => d.showOnGraph && d.backgroundColor
+        ),
         borderWidth: 1,
       },
     ],
@@ -45,13 +45,17 @@ const Result = ({ resultRef, data }: any) => {
       datasets: [
         {
           label: "My Dataset",
-          data: data?.map((d:any) => d.showOnGraph && d.data[selectedResultTab]),
-          backgroundColor: data.map((d:any) => d.showOnGraph && d.backgroundColor),
+          data: data?.map(
+            (d: any) => d.showOnGraph && d.data[selectedResultTab]
+          ),
+          backgroundColor: data.map(
+            (d: any) => d.showOnGraph && d.backgroundColor
+          ),
           borderWidth: 1,
         },
       ],
     }));
-  }, [selectedResultTab, data ]);
+  }, [selectedResultTab, data]);
 
   return (
     <Box
@@ -124,7 +128,7 @@ const Result = ({ resultRef, data }: any) => {
               </Text>
             </GridItem>
           </Grid>
-          {data.map((_:any, i:number) => (
+          {data.map((_: any, i: number) => (
             <Grid
               borderBottom={"1px solid"}
               gap={"10px"}
@@ -153,12 +157,12 @@ const Result = ({ resultRef, data }: any) => {
                   fontSize={"sm"}
                   color={"gray.700"}
                 >
-                  € {_.data[selectedResultTab]?.toLocaleString()}
+                  € {Number(_.data[selectedResultTab])?.toLocaleString()}
                 </Text>
               </GridItem>
             </Grid>
           ))}
-          <Grid
+          {/* <Grid
             borderBottom={"1px solid"}
             gap={"10px"}
             borderColor={"gray.200"}
@@ -185,7 +189,7 @@ const Result = ({ resultRef, data }: any) => {
                 € {[17702, 13702][selectedResultTab].toLocaleString()}
               </Text>
             </GridItem>
-          </Grid>
+          </Grid> */}
         </VStack>
       </Box>
     </Box>

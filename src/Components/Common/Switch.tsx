@@ -1,12 +1,12 @@
 import React from "react";
-import { Switch as ChakraSwitch, FormControl, FormLabel } from "@chakra-ui/react";
+import { Switch as ChakraSwitch, SwitchProps as ChakraSwitchProps, FormControl, FormLabel } from "@chakra-ui/react";
 
-interface SwitchProps {
+interface SwitchProps extends ChakraSwitchProps{
   label: string;
   containerProps?: any;
 }
 
-const Switch = ({ label, containerProps }: SwitchProps) => {
+const Switch = ({ label, containerProps, ...args }: SwitchProps) => {
   return (
     <FormControl
       display={"flex"}
@@ -19,7 +19,9 @@ const Switch = ({ label, containerProps }: SwitchProps) => {
       <FormLabel whiteSpace={["normal", "normal","nowrap"]} fontWeight={400} fontSize={"sm"}>
         {label}
       </FormLabel>
-      <ChakraSwitch colorScheme="blue" />
+      <ChakraSwitch colorScheme="blue"
+      {...args}
+      />
     </FormControl>
   );
 };
