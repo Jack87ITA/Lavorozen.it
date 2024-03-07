@@ -13,7 +13,7 @@ type Props = {};
 
 const defaultData = [
   {
-    id: "1",
+    id: "stipendioNetto",
     label: "Stipendio netto",
     data: [58754, 4520],
     backgroundColor: "#FF6633",
@@ -28,21 +28,28 @@ const defaultData = [
     showOnGraph: true,
   },
   {
-    id: "3",
+    id: "totalIrpef",
     label: "IRPEF",
     data: [35414, 2724],
     backgroundColor: "#FF33FF",
     showOnGraph: true,
   },
   {
-    id: "4",
+    id: "totalDeductions",
     label: "Detrazioni fiscali",
     data: [8, 1],
     backgroundColor: "#FFFF99",
     showOnGraph: true,
   },
   {
-    id: "5",
+    id: "trattamentoIntegrativo",
+    label: "Trattamento Integrativo",
+    data: [8, 1],
+    backgroundColor: "#FFFF9F",
+    showOnGraph: true,
+  },
+  {
+    id: "ral",
     label: "Retribuzione Lorda",
     data: [100000, 7692],
     backgroundColor: "#00B3E6",
@@ -50,25 +57,33 @@ const defaultData = [
     showOnGraph: true,
   },
   {
-    id: "6",
+    id: "inpsAzienda",
     label: "INPS azienda",
     data: [27680, 2212],
     backgroundColor: "#FFF3E6",
     showOnGraph: false,
   },
   {
-    id: "7",
+    id: "inail",
     label: "INAIL",
     data: [500, 38],
     backgroundColor: "#0FF3E6",
     showOnGraph: false,
   },
   {
-    id: "8",
+    id: "tfr",
     label: "TFR",
     data: [6907, 531],
     backgroundColor: "#0088E6",
     showOnGraph: false,
+  },
+  {
+    id: "costoAzendia",
+    label: "Costo Azienda",
+    data: [6907, 531],
+    backgroundColor: "#fff",
+    showOnGraph: false,
+    isHeading: true,
   },
 ];
 
@@ -86,22 +101,16 @@ const Home = (props: Props) => {
 
       const res = await InputAPI.postGetResult(values);
       if (res.success) {
-
         const newData = resultData.map((d: any) => {
-          if (d.id === "inps") {
-            return {
-              ...d,
-              data: [res.data.result["inps"], res.data.result["inps"] / 12],
-            };
-          }
+          Object.keys(res.data.result).forEach((key) => {
+            if (d.id === key) {
+              d.data = [res.data.result[key][0], res.data.result[key][1]];
+            }
+          });
           return d;
-        })
+        });
 
-        console.log(newData);
-        
-        setResultData(
-          newData
-        );
+        setResultData(newData);
       }
     } catch (e) {
       const errMsg = errorHandler(e);

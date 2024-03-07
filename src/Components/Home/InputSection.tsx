@@ -109,9 +109,9 @@ const inputData = [
     label: "Categoria",
     type: "select",
     options: [
-      { label: "Operaio", value: "operaio" },
-      { label: "Impiegato", value: "impiegato" },
-      { label: "Dirigente", value: "dirigente" },
+      { label: "Operai", value: "operai" },
+      { label: "Impiegati", value: "impiegati" },
+      { label: "Dirigenti", value: "dirigenti" },
     ],
   },
 ];
@@ -124,6 +124,7 @@ const InputSection = ({ handleCalculate }: InputSectionProps) => {
   const [formData, setFormData] = React.useState<any>({
     ral: 0,
     province: "",
+    region: "",
     mensilita: 13,
     contratto: "indeterminato",
     genere: "donna",
@@ -133,7 +134,7 @@ const InputSection = ({ handleCalculate }: InputSectionProps) => {
     figliCarico: 0,
     percentualeFigliCarico: 0,
     altriFamiliariCarico: 0,
-    categoria: "operaio",
+    categoria: "operai",
   });
 
   const handleFormChange = (key: string, value: any) => {
@@ -165,6 +166,7 @@ const InputSection = ({ handleCalculate }: InputSectionProps) => {
   useEffect(() => {
     validateForm();
   }, [formData]);
+
 
 
 
@@ -240,6 +242,9 @@ const InputSection = ({ handleCalculate }: InputSectionProps) => {
                       justifyContent: "space-between",
                     }}
                     label={input.label}
+                    onChange={(e) => {
+                      handleFormChange(input.key, e.target.checked);
+                    }}
                   />
                 )}
                 {input.type === "autocomplete" && (
@@ -249,6 +254,7 @@ const InputSection = ({ handleCalculate }: InputSectionProps) => {
                     containerProps={{
                       width: "100%",
                     }}
+                    onChange={(e:any) => handleFormChange(input.key, e)}
                   />
                 )}
                 {errors[input.key] && (
