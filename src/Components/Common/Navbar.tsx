@@ -1,19 +1,17 @@
 import React from "react";
-import { Link, Box, Flex, Text,  Stack } from "@chakra-ui/react";
+import { Link, Box, Flex, Text, Stack } from "@chakra-ui/react";
 
 import Logo from "../../Assets/icons/Logo";
 import Button from "./Button";
 
-const NavBar = (props:any) => {
+const NavBar = (props: any) => {
   const [isOpen, setIsOpen] = React.useState(false);
 
   const toggle = () => setIsOpen(!isOpen);
 
   return (
     <NavBarContainer {...props}>
-      <Logo
-        w="100px"
-      />
+      <Logo w="100px" />
       <MenuToggle toggle={toggle} isOpen={isOpen} />
       <MenuLinks isOpen={isOpen} />
     </NavBarContainer>
@@ -42,7 +40,7 @@ const MenuIcon = () => (
   </svg>
 );
 
-const MenuToggle = ({ toggle, isOpen }:any) => {
+const MenuToggle = ({ toggle, isOpen }: any) => {
   return (
     <Box display={{ base: "block", md: "none" }} onClick={toggle}>
       {isOpen ? <CloseIcon /> : <MenuIcon />}
@@ -50,7 +48,7 @@ const MenuToggle = ({ toggle, isOpen }:any) => {
   );
 };
 
-const MenuItem = ({ children, isLast, to = "/", ...rest }:any) => {
+const MenuItem = ({ children, isLast, to = "/", ...rest }: any) => {
   return (
     <Link href={to}>
       <Text color={"black"} display="block" {...rest}>
@@ -60,7 +58,7 @@ const MenuItem = ({ children, isLast, to = "/", ...rest }:any) => {
   );
 };
 
-const MenuLinks = ({ isOpen }:any) => {
+const MenuLinks = ({ isOpen }: any) => {
   return (
     <Box
       display={{ base: isOpen ? "block" : "none", md: "block" }}
@@ -73,19 +71,24 @@ const MenuLinks = ({ isOpen }:any) => {
         direction={["column", "row", "row", "row"]}
         pt={[4, 4, 0, 0]}
       >
-        <MenuItem to="/">Home</MenuItem>
-        <MenuItem to="/how">How It works </MenuItem>
-        <MenuItem to="/faetures">Features </MenuItem>
-        <MenuItem to="/pricing">Pricing </MenuItem>
-        <MenuItem to="/signup" isLast>
-          <Button size="sm">Sign Up</Button>
+        <MenuItem to="https://www.lavorozen.it/curriculum/">
+          CURRICULUM
+        </MenuItem>
+
+        <MenuItem to="/"> CALCOLO STIPENDIO LORDO NETTO </MenuItem>
+        <MenuItem to="https://www.lavorozen.it/mio-talento/">
+          MIO TALENTO{" "}
+        </MenuItem>
+        <MenuItem to="https://www.lavorozen.it/bloghr/">BLOG HR </MenuItem>
+        <MenuItem to="https://www.lavorozen.it/prenota-sessione/" isLast>
+          <Button rounded={"30px"} size="sm">Prenota Sessione</Button>
         </MenuItem>
       </Stack>
     </Box>
   );
 };
 
-const NavBarContainer = ({ children, ...props }:any) => {
+const NavBarContainer = ({ children, ...props }: any) => {
   return (
     <Flex
       as="nav"

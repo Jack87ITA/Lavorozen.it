@@ -16,7 +16,7 @@ const defaultData = [
     id: "stipendioNetto",
     label: "Stipendio netto",
     data: [58754, 4520],
-    backgroundColor: "#FF6633",
+    backgroundColor: "#61CE70",
     showOnGraph: true,
     isHeading: true,
   },
@@ -24,57 +24,57 @@ const defaultData = [
     id: "inps",
     label: "INPS",
     data: [5840, 449],
-    backgroundColor: "#FFB399",
+    backgroundColor: "#f6f8f5",
     showOnGraph: true,
   },
   {
     id: "totalIrpef",
     label: "IRPEF",
     data: [35414, 2724],
-    backgroundColor: "#FF33FF",
+    backgroundColor: "#96e6e6",
     showOnGraph: true,
   },
   {
     id: "totalDeductions",
     label: "Detrazioni fiscali",
     data: [8, 1],
-    backgroundColor: "#FFFF99",
+    backgroundColor: "#96e6e6",
     showOnGraph: true,
   },
   {
     id: "trattamentoIntegrativo",
     label: "Trattamento Integrativo",
     data: [8, 1],
-    backgroundColor: "#FFFF9F",
+    backgroundColor: "#0EF1B9",
     showOnGraph: true,
   },
   {
     id: "ral",
     label: "Retribuzione Lorda",
     data: [100000, 7692],
-    backgroundColor: "#00B3E6",
+    backgroundColor: "#FFFFFF",
     isHeading: true,
-    showOnGraph: true,
+    showOnGraph: false,
   },
   {
     id: "inpsAzienda",
     label: "INPS azienda",
     data: [27680, 2212],
-    backgroundColor: "#FFF3E6",
+    backgroundColor: "#FFFFFF",
     showOnGraph: false,
   },
   {
     id: "inail",
     label: "INAIL",
     data: [500, 38],
-    backgroundColor: "#0FF3E6",
+    backgroundColor: "#FFFFFF",
     showOnGraph: false,
   },
   {
     id: "tfr",
     label: "TFR",
     data: [6907, 531],
-    backgroundColor: "#0088E6",
+    backgroundColor: "#FFFFFF",
     showOnGraph: false,
   },
   {
@@ -100,6 +100,7 @@ const Home = (props: Props) => {
       setIsLoading(true);
 
       const res = await InputAPI.postGetResult(values);
+      console.log(values);
       if (res.success) {
         const newData = resultData.map((d: any) => {
           Object.keys(res.data.result).forEach((key) => {
@@ -109,6 +110,7 @@ const Home = (props: Props) => {
           });
           return d;
         });
+        
 
         setResultData(newData);
       }
@@ -120,11 +122,15 @@ const Home = (props: Props) => {
     }
   };
 
+
+  
   const handleCalulate = (input: any) => {
     getResults(input);
 
     resultRef.current?.scrollIntoView({ behavior: "smooth" });
   };
+
+
 
   return (
     <WebLayout>
