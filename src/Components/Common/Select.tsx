@@ -22,16 +22,13 @@ const Select = ({ label, options, containerProps, ...args }: SelectProps) => {
       alignItems={"center"}
       {...containerProps}
     >
-      <FormLabel
-        
-        fontWeight={400}
-        fontSize={"sm"}
-      >
-        {label}
+        <FormLabel as={"h2"} fontWeight={400} fontSize={"sm"}>
+       <strong>{label}</strong> 
       </FormLabel>
       <ChakraSelect
-        width={"auto"}
+        width={["160px", "auto"]}
         minW={["120px", "250px"]}
+        maxW={["160px", "auto"]}
         borderRadius={"8px"}
         overflow={"hidden"}
         fontSize={"sm"}

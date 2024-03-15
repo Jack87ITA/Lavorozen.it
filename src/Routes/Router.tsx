@@ -7,7 +7,6 @@ const Router = (props: Props) => {
   return (
     <Routes>
       <Route path="/" element={<Home />} />
-      {/* END */}
     </Routes>
   );
 };

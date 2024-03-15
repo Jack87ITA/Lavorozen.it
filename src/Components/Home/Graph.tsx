@@ -1,6 +1,7 @@
 import { Box, Text } from "@chakra-ui/react";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 import { Doughnut } from "react-chartjs-2";
+import { getFormattedCurrency } from "../../Utils/Common";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
@@ -24,7 +25,7 @@ const DoughnutChart = ({ data, value }: any) => {
       >
         <Text textAlign={"center"} fontWeight={600}>
           {" "}
-          € {value?.toLocaleString()}
+          € {getFormattedCurrency(value)}{" "}
         </Text>
         <Text textAlign={"center"} fontSize={"sm"} fontWeight={600}>
           Stipendo Netto

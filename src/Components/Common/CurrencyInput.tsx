@@ -1,3 +1,6 @@
+import React from "react";
+import CurrencyFormat from "react-currency-format";
+
 import {
   FormControl,
   FormLabel,
@@ -6,7 +9,7 @@ import {
   InputGroup,
   InputRightElement,
 } from "@chakra-ui/react";
-import React from "react";
+import { getFormattedCurrency } from "../../Utils/Common";
 
 interface InputProps extends Omit<ChakraInputProps, "onChange"> {
   label: string;
@@ -16,12 +19,13 @@ interface InputProps extends Omit<ChakraInputProps, "onChange"> {
   onChange: (value: string) => void;
 }
 
-const Input = ({
+const CurrencyInput = ({
   label,
   type = "text",
   containerProps,
   rightElement,
   onChange,
+  value,
   ...args
 }: InputProps) => {
   return (
@@ -34,7 +38,7 @@ const Input = ({
       {...containerProps}
     >
       <FormLabel as={"h2"} fontWeight={400} fontSize={"sm"}>
-       <strong>{label}</strong> 
+        <strong>{label}</strong>
       </FormLabel>
       <InputGroup
         width={["160px", "auto"]}
@@ -43,19 +47,24 @@ const Input = ({
         borderRadius={"8px"}
         overflow={"hidden"}
       >
-        <ChakraInput
-          fontSize={"sm"}
-          _placeholder={{
-            fontSize: "xs",
+        
+        <CurrencyFormat
+        style={{
+            width: "100%",
+            height: "40px",
+            borderRadius: "8px",
+            borderWidth: "0px",
+            border: "1px solid #E2E8F0",
+            padding: "0px 10px",
+        }}
+          value={value}
+          thousandSeparator="."
+          decimalSeparator=","
+          
+          onValueChange={(values: any) => {
+            const { formattedValue, value } = values;
+            onChange && onChange(value);
           }}
-          borderRadius={"8px"}
-          type={type}
-          placeholder={`Enter ${label}`}
-          onChange={(e: any) => {
-            let tempValue = e.target.value;
-            onChange && onChange(tempValue);
-          }}
-          {...args}
         />
         <InputRightElement
           ml={"-10px"}
@@ -70,4 +79,5 @@ const Input = ({
   );
 };
 
-export default Input;
+
+export default CurrencyInput;

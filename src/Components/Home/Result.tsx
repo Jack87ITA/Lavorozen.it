@@ -10,6 +10,7 @@ import {
 } from "@chakra-ui/react";
 import DoughnutChart from "./Graph";
 import { colors } from "../../Styles/Theme/colors";
+import { getFormattedCurrency } from "../../Utils/Common";
 
 const resultTabs = [
   {
@@ -73,6 +74,7 @@ const Result = ({ resultRef, data }: any) => {
         h={"100%"}
         boxShadow={"0px 0px 10px 0px #0000001a"}
         borderRadius={"30px"}
+        ref={resultRef}
       >
         {resultTabs.map((tab, i) => (
           <Box
@@ -96,7 +98,6 @@ const Result = ({ resultRef, data }: any) => {
       </HStack>
 
       <Box
-        ref={resultRef}
         padding={["15px", "30px"]}
         bg={"#fff"}
         w={"100%"}
@@ -146,8 +147,12 @@ const Result = ({ resultRef, data }: any) => {
                     borderRadius={"4px"}
                     bg={_.backgroundColor}
                   ></Box>
-                  <Text fontWeight={_.isHeading ? 600 : 400} fontSize={"sm"}>
-                    {_.label}
+                  <Text
+                    as="h2"
+                    fontWeight={_.isHeading ? 600 : 400}
+                    fontSize={"sm"}
+                  >
+                    <strong>{_.label}</strong>
                   </Text>
                 </Flex>
               </GridItem>
@@ -157,7 +162,7 @@ const Result = ({ resultRef, data }: any) => {
                   fontSize={"sm"}
                   color={"gray.700"}
                 >
-                  € {Number(_.data[selectedResultTab])?.toLocaleString()}
+                  € {getFormattedCurrency(Number(_.data[selectedResultTab]))}
                 </Text>
               </GridItem>
             </Grid>

@@ -14,13 +14,15 @@ import AutoComplete from "../Common/AutoComplete";
 import Switch from "../Common/Switch";
 import Select from "../Common/Select";
 import { ProvinceList } from "../../Constants";
+import { getFormattedCurrency } from "../../Utils/Common";
+import CurrencyInput from "../Common/CurrencyInput";
 
 const inputData = [
   {
     key: "ral",
     label: "Retribuzione Annua Lorda (RAL)",
     suffix: "€",
-    type: "number",
+    type: "currency",
     defaultValue: 0,
   },
   {
@@ -56,7 +58,7 @@ const inputData = [
     options: [
       { label: "Donna", value: "donna" },
       { label: "Uomo", value: "uomo" },
-      { label: "Altro", value: "altro" },
+      // { label: "Altro", value: "altro" },
     ],
   },
   {
@@ -117,14 +119,14 @@ const inputData = [
 ];
 
 interface InputSectionProps {
-  handleCalculate: (input:any) => void;
+  handleCalculate: (input: any) => void;
 }
 
 const InputSection = ({ handleCalculate }: InputSectionProps) => {
   const [formData, setFormData] = React.useState<any>({
     ral: 0,
-    province: "",
-    region: "",
+    province: "Milano",
+    region: "Lombardia",
     mensilita: 13,
     contratto: "indeterminato",
     genere: "donna",
@@ -167,8 +169,14 @@ const InputSection = ({ handleCalculate }: InputSectionProps) => {
     validateForm();
   }, [formData]);
 
-
-
+  const sanitizeInputNumber = (newValue:string) => {
+    if (/^[0-9.]$/.test(newValue.slice(-1)) || newValue === '') {
+      return newValue;
+    } else {
+      // If not a valid input, sanitize the value
+      return (newValue.replace(/[^0-9.]/g, ''));
+    }
+  };
 
   return (
     <Box
@@ -199,12 +207,40 @@ const InputSection = ({ handleCalculate }: InputSectionProps) => {
           {inputData.map((input: any, i) => (
             <GridItem position={"relative"}>
               <>
+              {input.type === "currency" && (
+                  <CurrencyInput
+                    label={input.label}
+                    type="text"
+                    value={formData[input.key]}
+                    onChange={(e) => {
+                      // const sanitizedValue = e.replace(/[^0-9]/g, "");
+                      handleFormChange(input.key, e);
+                    }}
+                    rightElement={
+                      input.suffix && (
+                        <Box
+                          background={colors.background.main}
+                          px={4}
+                          h={"100%"}
+                          display={"flex"}
+                          alignItems={"center"}
+                          justifyContent={"center"}
+                        >
+                          <Text>{input.suffix}</Text>
+                        </Box>
+                      )
+                    }
+                  />
+                )}
                 {input.type === "number" && (
                   <Input
                     label={input.label}
-                    type="number"
+                    type="text"
                     value={formData[input.key]}
-                    onChange={(e) => handleFormChange(input.key, e)}
+                    onChange={(e) => {
+                      // const sanitizedValue = e.replace(/[^0-9]/g, "");
+                      handleFormChange(input.key, e);
+                    }}
                     rightElement={
                       input.suffix && (
                         <Box
@@ -254,7 +290,8 @@ const InputSection = ({ handleCalculate }: InputSectionProps) => {
                     containerProps={{
                       width: "100%",
                     }}
-                    onChange={(e:any) => handleFormChange(input.key, e)}
+                    value={formData[input.key]}
+                    onChange={(e: any) => handleFormChange(input.key, e)}
                   />
                 )}
                 {errors[input.key] && (

@@ -37,12 +37,15 @@ const AutoComplete = ({
       justifyContent={"space-between"}
       {...containerProps}
     >
-      <FormLabel whiteSpace={"nowrap"} fontWeight={400} fontSize={"sm"}>
-        {label}
+      <FormLabel as={'h2'} whiteSpace={"nowrap"} fontWeight={400} fontSize={"sm"}>
+       <strong>
+         {label}
+         </strong>
       </FormLabel>
       <InputGroup
-        width={"auto"}
+        width={["160px", "auto"]}
         minW={["120px", "250px"]}
+        maxW={["160px", "auto"]}
         borderRadius={"8px"}
         overflow={"hidden"}
         border={"1px solid #E2E8F0"}

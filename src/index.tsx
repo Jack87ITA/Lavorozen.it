@@ -15,18 +15,17 @@ const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
 
-
 root.render(
-  // <React.StrictMode>
-  <Provider store={store}>
-    <PersistGate persistor={persistor}></PersistGate>
-    <ChakraBaseProvider theme={theme}>
-      <BrowserRouter>
-        <App />
-      </BrowserRouter>
-    </ChakraBaseProvider>
-  </Provider>
-  // </React.StrictMode>
+  <React.StrictMode>
+    <Provider store={store}>
+      <PersistGate persistor={persistor}></PersistGate>
+      <ChakraBaseProvider theme={theme}>
+        <BrowserRouter>
+          <App />
+        </BrowserRouter>
+      </ChakraBaseProvider>
+    </Provider>
+  </React.StrictMode>
 );
 
 serviceWorkerRegistration.register();
