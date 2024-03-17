@@ -1,5 +1,11 @@
-import currencyFormatter from 'currency-formatter';
+import currencyFormatter from 'currency-formatter'
 
 export const getFormattedCurrency = (value: number) => {
-    return currencyFormatter.format(value, { locale: 'de-DE', decimal: ',', thousand: '.', precision: 0, symbol: '' });
-    }
+    return currencyFormatter.format(value, {
+        locale: 'de-DE',
+        decimal: ',',
+        thousand: '.',
+        precision: 0,
+        symbol: '',
+    })
+}
