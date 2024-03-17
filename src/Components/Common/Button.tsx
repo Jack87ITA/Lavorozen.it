@@ -36,6 +36,7 @@ const Button = ({ onClick, children, variant, ...agrs }: ButtonProps) => {
             return (
                 <ChakraButton
                     bg={colors.primary.main}
+                    backgroundColor={colors.primary.main}
                     color={'white'}
                     borderRadius={'4px'}
                     fontSize={'sm'}

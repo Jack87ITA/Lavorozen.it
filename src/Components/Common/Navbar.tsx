@@ -3,6 +3,7 @@ import { Box, Flex, Link, Stack, Text } from '@chakra-ui/react'
 
 import Logo from '../../Assets/icons/Logo'
 import Button from './Button'
+import { colors } from '../../Styles/Theme/colors'
 
 const NavBar = (props: any) => {
     const [isOpen, setIsOpen] = React.useState(false)
@@ -86,7 +87,14 @@ const MenuLinks = ({ isOpen }: any) => {
                     to="https://www.lavorozen.it/prenota-sessione/"
                     isLast
                 >
-                    <Button   rounded={'30px'} size="md">
+                    <Button
+                        backgroundColor={colors.primary.main}
+                        sx={{
+                            background: colors.primary.main,
+                        }}
+                        rounded={'30px'}
+                        size="md"
+                    >
                         Prenota Sessione
                     </Button>
                 </MenuItem>
