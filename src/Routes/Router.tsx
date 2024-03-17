@@ -1,14 +1,12 @@
-import { Route, Routes } from "react-router-dom";
-import Home from "../Pages/Home";
+import { Route, Routes } from 'react-router-dom'
+import Home from '../Pages/Home'
 
-type Props = {};
+const Router = () => {
+    return (
+        <Routes>
+            <Route path="/" element={<Home />} />
+        </Routes>
+    )
+}
 
-const Router = (props: Props) => {
-  return (
-    <Routes>
-      <Route path="/" element={<Home />} />
-    </Routes>
-  );
-};
-
-export default Router;
+export default Router

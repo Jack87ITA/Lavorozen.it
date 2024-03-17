@@ -1,5 +1,5 @@
 export function defineCancelApiObject(apiObject) {
-    const cancelApiObject = {};
+    const cancelApiObject = {}
 
     Object.getOwnPropertyNames(apiObject).forEach((apiPropertyName) => {
         const cancellationControllerObject = {
@@ -8,12 +8,12 @@ export function defineCancelApiObject(apiObject) {
 
         cancelApiObject[apiPropertyName] = {
             handleRequestCancellation: () => {
-                cancellationControllerObject.controller?.abort();
-                cancellationControllerObject.controller = new AbortController();
-                return cancellationControllerObject.controller;
+                cancellationControllerObject.controller?.abort()
+                cancellationControllerObject.controller = new AbortController()
+                return cancellationControllerObject.controller
             },
         }
     })
 
-    return cancelApiObject;
+    return cancelApiObject
 }
