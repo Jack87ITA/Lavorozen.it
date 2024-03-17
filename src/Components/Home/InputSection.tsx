@@ -331,7 +331,10 @@ const InputSection = ({ handleCalculate }: InputSectionProps) => {
                     mt={'30px'}
                     mx={'auto'}
                     w={'200px'}
-                    bg={colors.primary.main}
+                    backgroundColor={colors.primary.main}
+                    sx={{
+                        background: colors.primary.main,
+                    }}
                     color={'#fff'}
                     borderRadius={'10px'}
                     fontSize={'md'}
