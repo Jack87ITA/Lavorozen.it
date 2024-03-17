@@ -88,6 +88,8 @@ const MenuLinks = ({ isOpen }: any) => {
                     isLast
                 >
                     <Button
+                        type="button"
+                        className='button-primary'
                         backgroundColor={colors.primary.main}
                         sx={{
                             background: colors.primary.main,

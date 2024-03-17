@@ -339,6 +339,8 @@ const InputSection = ({ handleCalculate }: InputSectionProps) => {
                     borderRadius={'10px'}
                     fontSize={'md'}
                     padding={'15px'}
+                    type="button"
+                    className="button-primary"
                 >
                     Calcola
                 </Button>
