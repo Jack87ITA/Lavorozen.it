@@ -46,6 +46,7 @@ const Button = ({ onClick, children, variant, ...agrs }: ButtonProps) => {
                     type="submit"
                     sx={{
                         background: '#0ec8e9 !important',
+                        backgroundColor: '#0ec8e9 !important',
                     }}
                     {...agrs}
                 >
