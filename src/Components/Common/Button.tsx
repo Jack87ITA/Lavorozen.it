@@ -16,7 +16,7 @@ const Button = ({ onClick, children, variant, ...agrs }: ButtonProps) => {
         case 'outline':
             return (
                 <ChakraButton
-                    bg={"transparent"}
+                    bg={'transparent'}
                     color={'primary.main'}
                     padding={'10px 20px'}
                     fontSize={'sm'}
@@ -44,6 +44,9 @@ const Button = ({ onClick, children, variant, ...agrs }: ButtonProps) => {
                     minW={'100px'}
                     onClick={onClick}
                     type="submit"
+                    sx={{
+                        background: '#0ec8e9 !important',
+                    }}
                     {...agrs}
                 >
                     {children}
