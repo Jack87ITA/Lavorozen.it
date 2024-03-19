@@ -1,8 +1,9 @@
-import './App.css'
-import Router from './Routes/Router'
+import React from "react";
+import "./App.css";
+import Router from "./Routes/Router";
 
 function App() {
-    return <Router />
+  return <Router />;
 }
 
-export default App
+export default App;
