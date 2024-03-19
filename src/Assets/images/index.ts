@@ -1,13 +1,7 @@
-import NotificationIllustration from './no_notification.svg'
-import Annoucements from './announcements.png'
-import Stats from './stats.png'
-import rfpDoc from './rfp.png'
-import Logo from './connect-logo.jpeg'
+import SiteLogo from './logo.png'
+import WhiteLogo from './white-logo.png'
 
 export const Images = {
-    NotificationIllustration,
-    Annoucements,
-    Stats,
-    rfpDoc,
-    Logo,
+    SiteLogo,
+    WhiteLogo
 }
