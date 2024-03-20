@@ -4,15 +4,18 @@ import { Box, Flex, Link, Stack, Text } from "@chakra-ui/react";
 import Logo from "../../Assets/icons/Logo";
 import Button from "./Button";
 import { colors } from "../../Styles/Theme/colors";
+import { useNavigate } from "react-router-dom";
 
 const NavBar = (props: any) => {
   const [isOpen, setIsOpen] = React.useState(false);
 
   const toggle = () => setIsOpen(!isOpen);
-
+  const navigate = useNavigate();
   return (
     <NavBarContainer {...props}>
-      <Logo w="100px" />
+      <Box onClick={() => navigate("https://www.lavorozen.it/")}>
+        <Logo w="100px" />
+      </Box>
       <MenuToggle toggle={toggle} isOpen={isOpen} />
       <MenuLinks isOpen={isOpen} />
     </NavBarContainer>
@@ -72,11 +75,15 @@ const MenuLinks = ({ isOpen }: any) => {
         direction={["column", "row", "row", "row"]}
         pt={[4, 4, 0, 0]}
       >
-        <MenuItem to="/">CURRICULUM</MenuItem>
+        <MenuItem to="https://www.lavorozen.it/curriculum/">
+          CURRICULUM
+        </MenuItem>
 
         <MenuItem to="/"> CALCOLO STIPENDIO LORDO NETTO </MenuItem>
-        <MenuItem to="/">MIO TALENTO </MenuItem>
-        <MenuItem to="/">BLOG HR </MenuItem>
+        <MenuItem to="https://www.lavorozen.it/mio-talento/">
+          MIO TALENTO{" "}
+        </MenuItem>
+        <MenuItem to="https://www.lavorozen.it/bloghr/">BLOG HR </MenuItem>
         <MenuItem to="/">
           <Button
             type="button"

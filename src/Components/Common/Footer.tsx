@@ -4,8 +4,10 @@ import { colors } from "../../Styles/Theme/colors";
 import MaxWidthContainer from "./MaxWidthContainer";
 import { LogoWhite } from "../../Assets/icons/Logo";
 import Button from "./Button";
+import { useNavigate } from "react-router-dom";
 
 const Footer = () => {
+  const navigate = useNavigate();
   return (
     <Box
       mt={"60px"}
@@ -23,7 +25,7 @@ const Footer = () => {
           gap={"20px"}
         >
           <VStack spacing={3} alignItems={"flex-start"}>
-            <Box>
+            <Box onClick={() => navigate("https://www.lavorozen.it")}>
               <LogoWhite />
             </Box>
             <Text color={"white"} fontSize={"sm"}>
@@ -40,16 +42,31 @@ const Footer = () => {
               spacing={3}
               justifyContent={"center"}
             >
-              <Text as={"a"} href="/" color={"white"} fontSize={"sm"}>
+              <Text
+                as={"a"}
+                href="https://www.lavorozen.it/curriculum/"
+                color={"white"}
+                fontSize={"sm"}
+              >
                 Curriculum
               </Text>
-              <Text as={"a"} href="" color={"white"} fontSize={"sm"}>
+              <Text as={"a"} href="/" color={"white"} fontSize={"sm"}>
                 Calcolo Stipendio Lordo Netto
               </Text>
-              <Text as={"a"} href="/" color={"white"} fontSize={"sm"}>
+              <Text
+                as={"a"}
+                href="https://www.lavorozen.it/mio-talento/"
+                color={"white"}
+                fontSize={"sm"}
+              >
                 Mio Talento
               </Text>
-              <Text as={"a"} href="/" color={"white"} fontSize={"sm"}>
+              <Text
+                as={"a"}
+                href="https://www.lavorozen.it/bloghr/"
+                color={"white"}
+                fontSize={"sm"}
+              >
                 Blog HR
               </Text>
             </VStack>
